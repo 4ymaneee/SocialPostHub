@@ -17,8 +17,6 @@ function getPosts() {
         let emptyTitle = ''
         if(title == null){
             title = emptyTitle
-        }else {
-            title
         }
         allPosts.innerHTML += `<div class="card shadow my-5">
             <div class="card-header ">
