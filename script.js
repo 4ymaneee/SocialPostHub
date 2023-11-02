@@ -14,6 +14,12 @@ function getPosts() {
         let title = post.title;
         let body = post.body;
         let commentsCount = post.comments_count;
+        let emptyTitle = ''
+        if(title == null){
+            title = emptyTitle
+        }else {
+            title
+        }
         allPosts.innerHTML += `<div class="card shadow my-5">
             <div class="card-header ">
                 <img src="${profilePic}" alt="" style="width: 40px; height: 40px;"
