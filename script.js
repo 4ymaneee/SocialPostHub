@@ -4,13 +4,12 @@ function getPosts() {
     .get("https://tarmeezacademy.com/api/v1/posts?limit=50")
     .then((response) => {
       let posts = response.data.data;
-      console.log(posts);
       let allPosts = document.getElementById("posts");
       allPosts.innerHTML = "";
       for (let post of posts) {
         let username = post.author.username;
         let profilePic = post.author.profile_image;
-        let image = post.image;
+        let postImage = post.image;
         let timeCreated = post.created_at;
         let title = post.title;
         let body = post.body;
@@ -23,7 +22,7 @@ function getPosts() {
             </div>
             <div class="card-body">
                 <img class="w-100 rounded"
-                    src="${image}"
+                    src="${postImage}"
                     alt="">
                 <h6 class="mt-2" style="color: grey;">${timeCreated}</h6>
                 <h5>${title}</h5>
