@@ -1,18 +1,21 @@
+//Get All Posts
 function getPosts() {
-    axios.get('https://tarmeezacademy.com/api/v1/posts?limit=50')
+  axios
+    .get("https://tarmeezacademy.com/api/v1/posts?limit=50")
     .then((response) => {
-        let posts = response.data.data
-        let cards = document.getElementById('posts')
-        cards.innerHTML = ""
-        for(let post of posts) {
-            let username = post.author.username
-            let profilePic = post.author.profile_image
-            let image = post.image
-            let timeCreated = post.created_at
-            let title = post.title
-            let body = post.body
-            let commentsCount = post.comments_count
-            cards.innerHTML += `<div class="card shadow my-5">
+      let posts = response.data.data;
+      console.log(posts);
+      let allPosts = document.getElementById("posts");
+      allPosts.innerHTML = "";
+      for (let post of posts) {
+        let username = post.author.username;
+        let profilePic = post.author.profile_image;
+        let image = post.image;
+        let timeCreated = post.created_at;
+        let title = post.title;
+        let body = post.body;
+        let commentsCount = post.comments_count;
+        allPosts.innerHTML += `<div class="card shadow my-5">
             <div class="card-header ">
                 <img src="${profilePic}" alt="" style="width: 40px; height: 40px;"
                     class="rounded-circle border border-3 profile-pic">
@@ -35,10 +38,9 @@ function getPosts() {
                     <span>(${commentsCount}) comments</span>
                 </div>
             </div>
-        </div>`
-        }
-        
-    })
+        </div>`;
+      }
+    });
 }
 
-getPosts()
+getPosts();
