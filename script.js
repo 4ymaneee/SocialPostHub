@@ -2,6 +2,8 @@ function getPosts() {
     axios.get('https://tarmeezacademy.com/api/v1/posts?limit=50')
     .then((response) => {
         let posts = response.data.data
+        let cards = document.getElementById('posts')
+        cards.innerHTML = ""
         for(let post of posts) {
             let username = post.author.username
             let profilePic = post.author.profile_image
@@ -10,7 +12,6 @@ function getPosts() {
             let title = post.title
             let body = post.body
             let commentsCount = post.comments_count
-            let cards = document.getElementById('posts')
             cards.innerHTML += `<div class="card shadow my-5">
             <div class="card-header ">
                 <img src="${profilePic}" alt="" style="width: 40px; height: 40px;"
