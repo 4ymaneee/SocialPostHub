@@ -11,12 +11,12 @@ function getPosts() {
         let profilePic = post.author.profile_image;
         let postImage = post.image;
         let timeCreated = post.created_at;
-        let title = post.title;
+        let postTitle = post.title;
         let body = post.body;
         let commentsCount = post.comments_count;
         let emptyTitle = ''
-        if(title == null){
-            title = emptyTitle
+        if(postTitle == null){
+            postTitle = emptyTitle
         }
         allPosts.innerHTML += `<div class="card shadow my-5">
             <div class="card-header ">
@@ -29,7 +29,7 @@ function getPosts() {
                     src="${postImage}"
                     alt="">
                 <h6 class="mt-2" style="color: grey;">${timeCreated}</h6>
-                <h5>${title}</h5>
+                <h5>${postTitle}</h5>
                 <p>${body}</p>
                 <hr>
                 <div>
