@@ -3,7 +3,7 @@ const baseURL = "https://tarmeezacademy.com/api/v1";
 
 //Get All Posts
 function getPosts() {
-  axios.get(`${baseURL}/posts?limit=5`).then((response) => {
+  axios.get(`${baseURL}/posts?limit=50`).then((response) => {
     let posts = response.data.data;
 
     let allPosts = document.getElementById("posts");
