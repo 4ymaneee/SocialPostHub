@@ -20,24 +20,7 @@ function getPosts() {
       if (postTitle == null) {
         postTitle = emptyTitle;
       }
-      let tags = [
-        {
-          name: "sports",
-          arabic_name: "رياضة",
-          description: "everything about sports",
-        },
-        {
-          name: "policy",
-          arabic_name: "سياسة",
-          description: "everything about policy",
-        },
-        {
-          name: "economy",
-          arabic_name: "اقتصاد",
-          description: "everything about economy",
-        },
-      ];
-
+      let tags = posts[x].tags
       let tagHTML = '';
       for (let i = 0; i < tags.length; i++) {
         tagHTML += `<span class="btn btn-secondary rounded-pill me-1">${tags[i].name}</span>`;
