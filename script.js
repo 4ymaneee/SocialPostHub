@@ -38,8 +38,11 @@ function getPosts() {
           description: "everything about economy",
         },
       ];
+      
+      let tagHTML = '';
       for (let i = 0; i < tags.length; i++) {
-        console.log(tags[i].name);
+        tagHTML += `<span class="btn btn-secondary rounded-pill me-1">${tags[i].name}</span>`;
+        console.log(tagHTML)
       }
       allPosts.innerHTML += `<div class="card shadow my-5">
             <div class="card-header ">
@@ -63,14 +66,13 @@ function getPosts() {
                     </svg>
                     <span class="me-2">(${commentsCount}) comments</span>
                     <i id="tag-content"> 
-                    <span class="btn btn-secondary rounded-pill">policy</span>
+                    ${tagHTML}
                     </i>
                     
                     
                 </div>
             </div>
         </div>`;
-      console.log("====");
     }
   });
 }
