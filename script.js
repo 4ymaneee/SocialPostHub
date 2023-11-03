@@ -20,7 +20,6 @@ function getPosts() {
       if (postTitle == null) {
         postTitle = emptyTitle;
       }
-      console.log("the loop is : " + x);
       let tags = [
         {
           name: "sports",
@@ -38,11 +37,10 @@ function getPosts() {
           description: "everything about economy",
         },
       ];
-      
+
       let tagHTML = '';
       for (let i = 0; i < tags.length; i++) {
         tagHTML += `<span class="btn btn-secondary rounded-pill me-1">${tags[i].name}</span>`;
-        console.log(tagHTML)
       }
       allPosts.innerHTML += `<div class="card shadow my-5">
             <div class="card-header ">
