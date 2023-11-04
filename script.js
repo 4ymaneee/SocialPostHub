@@ -116,17 +116,13 @@ function setupUI() {
   //Username
   let user = JSON.parse(localStorage.getItem("user"));
   let username = document.getElementById("username");
+  let profilePic = document.getElementById("imgProfile");
   if (user != null) {
     username.style.display = "block";
     document.getElementById("username").innerHTML = "@" + user.username;
-  }
 
-  //Profile pic
-  let profileImg = localStorage.getItem("profilePicture");
-  let profilePic = document.getElementById("imgProfile");
-  if (profileImg != null) {
-    profilePic.src = profileImg;
-    console.log("test passed");
+    //Profile pic
+    profilePic.src = user.profile_image;
   }
 }
 setupUI();
@@ -166,8 +162,6 @@ function registerBtnClicked() {
       let modal = document.getElementById("register-modal");
       let modalInstance = bootstrap.Modal.getInstance(modal);
       modalInstance.hide();
-      localStorage.setItem("profilePicture", response.data.user.profile_image);
-      profilePic();
     })
     .catch(function () {
       console.log("Username already Used, choose another one");
