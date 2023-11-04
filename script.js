@@ -77,9 +77,6 @@ function loginBtnClicked() {
       let modalInstance = bootstrap.Modal.getInstance(modal);
       modalInstance.hide();
       setupUI()
-      let username = document.getElementById("username");
-      username.style.display = "block";
-      username.innerHTML = "@" + response.data.user.username;
     });
 }
 
@@ -108,15 +105,16 @@ function showSuccessAlert() {
 
 //Setup Ui
 function setupUI() {
-  let token = localStorage.getItem('token')
-  if(token != null) {
+  let token = localStorage.getItem("token");
+  if (token != null) {
     document.querySelector(".login").style.display = "none";
     document.querySelector(".register").style.display = "none";
     document.querySelector(".logout").style.display = "block";
     document.querySelector(".profile-pic").style.display = "block";
+    document.getElementById("username").username.style.display = "block";
   }
 }
-
+setupUI();
 //Logout user
 
 function logoutUser() {
@@ -125,4 +123,6 @@ function logoutUser() {
   document.querySelector(".logout").style.display = "none";
   document.querySelector(".profile-pic").style.display = "none";
   document.getElementById("username").style.display = "none";
+  localStorage.removeItem("token")
+  localStorage.removeItem("user")
 }
