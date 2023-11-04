@@ -75,16 +75,17 @@ function loginBtnClicked() {
       let modal = document.getElementById("login-modal");
       let modalInstance = bootstrap.Modal.getInstance(modal);
       modalInstance.hide();
-      showSuccessAlert();
+      showSuccessAlert("You Have Login successfully");
       setupUI();
-    }).catch(function (error) {
+    })
+    .catch(function (error) {
       console.log(error.response.data.message);
-      showDangerAlert(error.response.data.message)
+      showDangerAlert(error.response.data.message);
     });
 }
 
 //Show Success Alert
-function showSuccessAlert() {
+function showSuccessAlert(successMessage) {
   const alertPlaceholder = document.getElementById("succes-alert");
   const appendAlert = (message, type) => {
     const wrapper = document.createElement("div");
@@ -97,15 +98,15 @@ function showSuccessAlert() {
 
     alertPlaceholder.append(wrapper);
   };
-  appendAlert("You Have Login successfully", "success");
+  appendAlert(successMessage, "success");
 
   const alert = bootstrap.Alert.getOrCreateInstance("#succes-alert");
-  setTimeout(function () {
+  setTimeout(() => {
     alert.close();
-  }, 4000);
+  }, 3000);
 }
 //Show Danger Alert
-function showDangerAlert(messageError) {
+function showDangerAlert(errorMessage) {
   const alertPlaceholder = document.getElementById("danger-alert");
   const appendAlert = (message, type) => {
     const wrapper = document.createElement("div");
@@ -118,10 +119,10 @@ function showDangerAlert(messageError) {
 
     alertPlaceholder.append(wrapper);
   };
-  appendAlert(messageError, "danger");
+  appendAlert(errorMessage, "danger");
 
   const alert = bootstrap.Alert.getOrCreateInstance("#danger-alert");
-  setTimeout(function () {
+  setTimeout(() => {
     alert.close();
   }, 3000);
 }
@@ -153,6 +154,7 @@ setupUI();
 
 //Logout user
 function logoutUser() {
+  showSuccessAlert("You Have Logout successfully")
   localStorage.removeItem("token");
   localStorage.removeItem("user");
   localStorage.removeItem("profilePicture");
