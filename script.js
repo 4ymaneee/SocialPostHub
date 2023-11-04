@@ -146,7 +146,6 @@ function setupUI() {
   if (user != null) {
     username.style.display = "block";
     document.getElementById("username").innerHTML = "@" + user.username;
-
     //Profile pic
     profilePic.src = user.profile_image;
   }
