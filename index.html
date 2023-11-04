@@ -49,6 +49,44 @@
         </div>
     </div>
     <!-- LOGIN MODAL -->
+
+    <!-- REGISTER MODAL -->
+    <div class="modal fade" id="register-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Register</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label" value="aymaninox">Profile Image:</label>
+                            <input type="file" class="form-control" id="registerImage">
+                        </div>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label" value="aymaninox">Name:</label>
+                            <input type="text" class="form-control" id="registerName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label" value="aymaninox">Username:</label>
+                            <input type="text" class="form-control" id="registerUsername">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label" value="123456">Password:</label>
+                            <input type="password" class="form-control" id="registerPassword">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" 
+                        id="closeBtn" onclick="registerBtnClicked()">Register</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- REGISTER MODAL -->
     <!-- ===== MODALS ===== -->
 
     <!-- ==== ALERTS ==== -->
@@ -79,7 +117,7 @@
                             <div class="d-flex w-100 justify-content-end">
                                 <button type="button" class="btn btn-outline-success login" data-bs-toggle="modal"
                                     data-bs-target="#login-modal">Login</button>
-                                <button type="button" class="btn btn-outline-success ms-2 register">Register</button>
+                                <button type="button" class="btn btn-outline-success ms-2 register" data-bs-target="#register-modal" data-bs-toggle="modal">Register</button>
                                 <div class="d-flex align-items-center">
                                     <img src="images/e2WgnGNj_400x400.jpg" alt=""
                                         style="width: 40px; height: 40px; display: none;"

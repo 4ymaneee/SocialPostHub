@@ -117,7 +117,6 @@ function setupUI() {
   if (user != null) {
     username.style.display = "block";
     document.getElementById("username").innerHTML = "@" + user.username;
-    console.log(user.username);
   }
 }
 setupUI();
@@ -131,4 +130,31 @@ function logoutUser() {
   document.querySelector(".logout").style.display = "none";
   document.querySelector(".profile-pic").style.display = "none";
   username.style.display = "none";
+}
+
+// Register User
+function registerBtnClicked() {
+  let image = document.getElementById("registerImage").files[0];
+  let name = document.getElementById("registerName").value;
+  let username = document.getElementById("registerUsername").value;
+  let password = document.getElementById("registerPassword").value;
+  let formData = {
+    image: image,
+    name: name,
+    username: username,
+    password: password,
+  };
+
+  axios
+    .post("https://tarmeezacademy.com/api/v1/register", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
 }
