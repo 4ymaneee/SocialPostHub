@@ -60,26 +60,6 @@ function getPosts() {
 
 getPosts();
 
-//Login User
-function loginBtnClicked() {
-  let username = document.getElementById("username-input").value;
-  let password = document.getElementById("password-input").value;
-  axios
-    .post(`${baseURL}/login`, {
-      username: username,
-      password: password,
-    })
-    .then(function (response) {
-      console.log(response.data.token);
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("user", JSON.stringify(response.data.user));
-      let modal = document.getElementById("login-modal");
-      let modalInstance = bootstrap.Modal.getInstance(modal);
-      modalInstance.hide();
-      setupUI();
-    });
-}
-
 //Show Success Alert
 function showSuccessAlert() {
   const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
@@ -114,6 +94,7 @@ function setupUI() {
   }
   let user = JSON.parse(localStorage.getItem("user"));
   let username = document.getElementById("username");
+
   if (user != null) {
     username.style.display = "block";
     document.getElementById("username").innerHTML = "@" + user.username;
@@ -125,6 +106,7 @@ setupUI();
 function logoutUser() {
   localStorage.removeItem("token");
   localStorage.removeItem("user");
+  localStorage.removeItem("profilePicture");
   document.querySelector(".login").style.display = "block";
   document.querySelector(".register").style.display = "block";
   document.querySelector(".logout").style.display = "none";
@@ -152,12 +134,46 @@ function registerBtnClicked() {
       },
     })
     .then(function (response) {
-      let modal = document.getElementById('register-modal');
+      let modal = document.getElementById("register-modal");
       let modalInstance = bootstrap.Modal.getInstance(modal);
       modalInstance.hide();
+      localStorage.setItem(
+        "profilePicture",
+        JSON.stringify(response.data.user)
+      );
+      profilePic();
     })
-    .catch(function (error) {
-      console.error(error);
+    .catch(function () {
+      console.log("Username already Used, choose another one");
     });
 }
 
+//Profile Pic
+function profilePic() {
+  let profileImg = JSON.parse(localStorage.getItem("profilePicture"));
+  let profilePic = document.getElementById("imgProfile");
+  if(profileImg.profile_image != null){
+    profilePic.src = profileImg.profile_image;
+    console.log('test passed')
+  }
+}
+
+//Login User
+function loginBtnClicked() {
+  let username = document.getElementById("username-input").value;
+  let password = document.getElementById("password-input").value;
+  axios
+    .post(`${baseURL}/login`, {
+      username: username,
+      password: password,
+    })
+    .then(function (response) {
+      console.log(response.data.token);
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+      let modal = document.getElementById("login-modal");
+      let modalInstance = bootstrap.Modal.getInstance(modal);
+      modalInstance.hide();
+      setupUI();
+    });
+}
