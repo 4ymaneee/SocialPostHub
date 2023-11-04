@@ -112,23 +112,17 @@ function setupUI() {
     document.querySelector(".logout").style.display = "block";
     document.querySelector(".profile-pic").style.display = "block";
   }
-  let user = JSON.parse(localStorage.getItem("user"))
-    if (user != null) {
-      document.getElementById('username').innerHTML = user.username
-      console.log(user.username)
-    } else {
-      console.log("doesnt exist");
-    }
+  let user = JSON.parse(localStorage.getItem("user"));
+  let username = document.getElementById("username");
+  if (user != null) {
+    username.style.display = "block";
+    document.getElementById("username").innerHTML = "@" + user.username;
+    console.log(user.username);
+  }
 }
 setupUI();
 
-
-//show username
-function showUsername() {
-  
-}
 //Logout user
-
 function logoutUser() {
   localStorage.removeItem("token");
   localStorage.removeItem("user");
@@ -136,4 +130,5 @@ function logoutUser() {
   document.querySelector(".register").style.display = "block";
   document.querySelector(".logout").style.display = "none";
   document.querySelector(".profile-pic").style.display = "none";
+  username.style.display = "none";
 }
