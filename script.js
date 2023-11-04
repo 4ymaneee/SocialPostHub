@@ -3,7 +3,7 @@ const baseURL = "https://tarmeezacademy.com/api/v1";
 
 //Get All Posts
 function getPosts() {
-  axios.get(`${baseURL}/posts?limit=3`).then((response) => {
+  axios.get(`${baseURL}/posts?limit=20`).then((response) => {
     let posts = response.data.data;
 
     let allPosts = document.getElementById("posts");
@@ -75,13 +75,17 @@ function loginBtnClicked() {
       let modal = document.getElementById("login-modal");
       let modalInstance = bootstrap.Modal.getInstance(modal);
       modalInstance.hide();
+      showSuccessAlert();
       setupUI();
+    }).catch(function (error) {
+      console.log(error.response.data.message);
+      showDangerAlert(error.response.data.message)
     });
 }
 
 //Show Success Alert
 function showSuccessAlert() {
-  const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
+  const alertPlaceholder = document.getElementById("succes-alert");
   const appendAlert = (message, type) => {
     const wrapper = document.createElement("div");
     wrapper.innerHTML = [
@@ -93,13 +97,33 @@ function showSuccessAlert() {
 
     alertPlaceholder.append(wrapper);
   };
+  appendAlert("You Have Login successfully", "success");
 
-  const alertTrigger = document.getElementById("liveAlertBtn");
-  if (alertTrigger) {
-    alertTrigger.addEventListener("click", () => {
-      appendAlert("Nice, you triggered this alert message!", "success");
-    });
-  }
+  const alert = bootstrap.Alert.getOrCreateInstance("#succes-alert");
+  setTimeout(function () {
+    alert.close();
+  }, 4000);
+}
+//Show Danger Alert
+function showDangerAlert(messageError) {
+  const alertPlaceholder = document.getElementById("danger-alert");
+  const appendAlert = (message, type) => {
+    const wrapper = document.createElement("div");
+    wrapper.innerHTML = [
+      `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+      `   <div>${message}</div>`,
+      '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+      "</div>",
+    ].join("");
+
+    alertPlaceholder.append(wrapper);
+  };
+  appendAlert(messageError, "danger");
+
+  const alert = bootstrap.Alert.getOrCreateInstance("#danger-alert");
+  setTimeout(function () {
+    alert.close();
+  }, 3000);
 }
 
 //Setup Ui
