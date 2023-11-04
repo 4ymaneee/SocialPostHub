@@ -1,4 +1,4 @@
-# The Final Project 🚀
+# SocialPostHub 🚀
 
 This repository contains the code for a web application, "SocialPostHub," developed using HTML, JavaScript, and CSS. The application allows users to view and interact with posts, log in, register, and more.
 
