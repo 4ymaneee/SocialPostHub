@@ -188,8 +188,8 @@ function registerBtnClicked() {
       let modal = document.getElementById("register-modal");
       let modalInstance = bootstrap.Modal.getInstance(modal);
       modalInstance.hide();
-      localStorage.setItem('token', response.data.token)
-      localStorage.setItem('user', JSON.stringify(response.data.user))
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
       showSuccessAlert("New User Registered Successfully");
       setupUI();
     })
