@@ -79,7 +79,6 @@ function loginBtnClicked() {
       setupUI();
     })
     .catch(function (error) {
-      console.log(error.response.data.message);
       showDangerAlert(error.response.data.message);
     });
 }
@@ -90,7 +89,7 @@ function showSuccessAlert(successMessage) {
   const appendAlert = (message, type) => {
     const wrapper = document.createElement("div");
     wrapper.innerHTML = [
-      `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+      `<div class="alert alert-${type} alert-dismissible" role="alert" id="deleteSuccesAlert">`,
       `   <div>${message}</div>`,
       '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
       "</div>",
@@ -99,11 +98,12 @@ function showSuccessAlert(successMessage) {
     alertPlaceholder.append(wrapper);
   };
   appendAlert(successMessage, "success");
-
-  const alert = bootstrap.Alert.getOrCreateInstance("#succes-alert");
+  
+//Delete Success Alert
+  const alert = bootstrap.Alert.getOrCreateInstance("#deleteSuccesAlert");
   setTimeout(() => {
     alert.close();
-  }, 3000);
+  }, 2000);
 }
 //Show Danger Alert
 function showDangerAlert(errorMessage) {
@@ -111,7 +111,7 @@ function showDangerAlert(errorMessage) {
   const appendAlert = (message, type) => {
     const wrapper = document.createElement("div");
     wrapper.innerHTML = [
-      `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+      `<div class="alert alert-${type} alert-dismissible" role="alert" id="deleteDangerAlert">`,
       `   <div>${message}</div>`,
       '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
       "</div>",
@@ -121,10 +121,11 @@ function showDangerAlert(errorMessage) {
   };
   appendAlert(errorMessage, "danger");
 
-  const alert = bootstrap.Alert.getOrCreateInstance("#danger-alert");
+  //Delete Error Alert
+  const alert = bootstrap.Alert.getOrCreateInstance("#deleteDangerAlert");
   setTimeout(() => {
     alert.close();
-  }, 3000);
+  }, 2000);
 }
 
 //Setup Ui
