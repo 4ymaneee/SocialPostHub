@@ -1,10 +1,10 @@
 # The Final Project 🚀
 
-This repository contains the code for a web application, "The Final Project," developed using HTML, JavaScript, and CSS. The application allows users to view and interact with posts, log in, register, and more.
+This repository contains the code for a web application, "SocialPostHub," developed using HTML, JavaScript, and CSS. The application allows users to view and interact with posts, log in, register, and more.
 
 ## Project Description 📝
 
-"The Final Project" is a web application designed for users to view and interact with posts. It provides a user-friendly interface for users to log in, register, and view posts created by other users. The application is built using HTML, JavaScript, CSS, and external libraries such as Axios and Bootstrap.
+"SocialPostHub" is a web application designed for users to view and interact with posts. It provides a user-friendly interface for users to log in, register, and view posts created by other users. The application is built using HTML, JavaScript, CSS, and external libraries such as Axios and Bootstrap.
 
 ## Features 🌟
 
