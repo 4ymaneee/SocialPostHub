@@ -21,9 +21,9 @@ function getPosts() {
         postTitle = emptyTitle;
       }
       let tags = posts[x].tags;
-      let tagHTML = "";
+      let tag = "";
       for (let i = 0; i < tags.length; i++) {
-        tagHTML += `<span class="btn btn-secondary rounded-pill me-1">${tags[i].name}</span>`;
+        tag += `<span class="btn btn-secondary rounded-pill me-1">${tags[i].name}</span>`;
       }
       allPosts.innerHTML += `<div class="card shadow my-5">
             <div class="card-header ">
@@ -47,7 +47,7 @@ function getPosts() {
                     </svg>
                     <span class="me-2">(${commentsCount}) comments</span>
                     <i id="tag-content"> 
-                    ${tagHTML}
+                    ${tag}
                     </i>
                     
                     
@@ -98,7 +98,7 @@ function showSuccessAlert(successMessage) {
     alertPlaceholder.append(wrapper);
   };
   appendAlert(successMessage, "success");
-  
+
 //Delete Success Alert
   const alert = bootstrap.Alert.getOrCreateInstance("#deleteSuccesAlert");
   setTimeout(() => {
