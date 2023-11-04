@@ -3,7 +3,7 @@ const baseURL = "https://tarmeezacademy.com/api/v1";
 
 //Get All Posts
 function getPosts() {
-  axios.get(`${baseURL}/posts?limit=50`).then((response) => {
+  axios.get(`${baseURL}/posts?limit=3`).then((response) => {
     let posts = response.data.data;
 
     let allPosts = document.getElementById("posts");
@@ -20,8 +20,8 @@ function getPosts() {
       if (postTitle == null) {
         postTitle = emptyTitle;
       }
-      let tags = posts[x].tags
-      let tagHTML = '';
+      let tags = posts[x].tags;
+      let tagHTML = "";
       for (let i = 0; i < tags.length; i++) {
         tagHTML += `<span class="btn btn-secondary rounded-pill me-1">${tags[i].name}</span>`;
       }
@@ -71,14 +71,50 @@ function loginBtnClicked() {
     })
     .then(function (response) {
       console.log(response.data.token);
-      document.querySelector(".login").style.display = "none";
-      document.querySelector(".register").style.display = "none";
-      document.querySelector(".logout").style.display = "block";
-      document.querySelector(".profile-pic").style.display = "block";
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+      let modal = document.getElementById("login-modal");
+      let modalInstance = bootstrap.Modal.getInstance(modal);
+      modalInstance.hide();
+      setupUI()
       let username = document.getElementById("username");
       username.style.display = "block";
       username.innerHTML = "@" + response.data.user.username;
     });
+}
+
+//Show Success Alert
+function showSuccessAlert() {
+  const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
+  const appendAlert = (message, type) => {
+    const wrapper = document.createElement("div");
+    wrapper.innerHTML = [
+      `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+      `   <div>${message}</div>`,
+      '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+      "</div>",
+    ].join("");
+
+    alertPlaceholder.append(wrapper);
+  };
+
+  const alertTrigger = document.getElementById("liveAlertBtn");
+  if (alertTrigger) {
+    alertTrigger.addEventListener("click", () => {
+      appendAlert("Nice, you triggered this alert message!", "success");
+    });
+  }
+}
+
+//Setup Ui
+function setupUI() {
+  let token = localStorage.getItem('token')
+  if(token != null) {
+    document.querySelector(".login").style.display = "none";
+    document.querySelector(".register").style.display = "none";
+    document.querySelector(".logout").style.display = "block";
+    document.querySelector(".profile-pic").style.display = "block";
+  }
 }
 
 //Logout user

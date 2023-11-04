@@ -21,7 +21,7 @@
 <body>
     <!-- ===== MODALS ===== -->
     <!-- LOGIN MODAL -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="login-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -43,13 +43,17 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" onclick="loginBtnClicked()"
-                        class="btn-close">login</button>
+                        id="closeBtn">login</button>
                 </div>
             </div>
         </div>
     </div>
     <!-- LOGIN MODAL -->
     <!-- ===== MODALS ===== -->
+
+    <!-- ==== ALERTS ==== -->
+    <div id="liveAlertPlaceholder"></div>
+    <!-- ==== ALERTS ==== -->
 
     <!-- NAVIGATION BAR CONTAINER -->
     <div class="container pt-3">
@@ -74,7 +78,7 @@
                             </ul>
                             <div class="d-flex w-100 justify-content-end">
                                 <button type="button" class="btn btn-outline-success login" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">Login</button>
+                                    data-bs-target="#login-modal">Login</button>
                                 <button type="button" class="btn btn-outline-success ms-2 register">Register</button>
                                 <div class="d-flex align-items-center">
                                     <img src="images/e2WgnGNj_400x400.jpg" alt=""
@@ -108,7 +112,7 @@
                     </div>
                     <!-- LOADER -->
                     <!-- POST -->
-                    <div class="card shadow my-5"> 
+                    <!-- <div class="card shadow my-5"> 
                         <div class="card-header ">
                             <img src="images/e2WgnGNj_400x400.jpg" alt="" style="width: 40px; height: 40px;"
                                 class="rounded-circle border border-3 profile-pic">
@@ -136,7 +140,7 @@
                                 <span class="btn btn-secondary rounded-pill">economy</span>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- POST -->
                 </div>
                 <!-- POSTS -->
