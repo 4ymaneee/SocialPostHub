@@ -76,7 +76,7 @@ function loginBtnClicked() {
       let modal = document.getElementById("login-modal");
       let modalInstance = bootstrap.Modal.getInstance(modal);
       modalInstance.hide();
-      setupUI()
+      setupUI();
     });
 }
 
@@ -111,18 +111,29 @@ function setupUI() {
     document.querySelector(".register").style.display = "none";
     document.querySelector(".logout").style.display = "block";
     document.querySelector(".profile-pic").style.display = "block";
-    document.getElementById("username").username.style.display = "block";
   }
+  let user = JSON.parse(localStorage.getItem("user"))
+    if (user != null) {
+      document.getElementById('username').innerHTML = user.username
+      console.log(user.username)
+    } else {
+      console.log("doesnt exist");
+    }
 }
 setupUI();
+
+
+//show username
+function showUsername() {
+  
+}
 //Logout user
 
 function logoutUser() {
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
   document.querySelector(".login").style.display = "block";
   document.querySelector(".register").style.display = "block";
   document.querySelector(".logout").style.display = "none";
   document.querySelector(".profile-pic").style.display = "none";
-  document.getElementById("username").style.display = "none";
-  localStorage.removeItem("token")
-  localStorage.removeItem("user")
 }
