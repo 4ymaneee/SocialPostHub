@@ -4,7 +4,7 @@ This repository contains the code for a web application, "SocialPostHub," develo
 
 ## Project Description 📝
 
-"SocialPostHub" is a web application designed for users to view and interact with posts. It provides a user-friendly interface for users to log in, register, and view posts created by other users. The application is built using HTML, JavaScript, CSS, and external libraries such as Axios and Bootstrap.
+"SocialPostHub" is a dynamic web application designed to foster connections and content sharing within a vibrant online community. This platform is built using HTML, JavaScript, CSS, and relies on external libraries like Axios and Bootstrap to provide an engaging user experience.
 
 ## Features 🌟
 
