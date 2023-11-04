@@ -57,8 +57,27 @@ function getPosts() {
     }
   });
 }
-
 getPosts();
+
+//Login User
+function loginBtnClicked() {
+  let username = document.getElementById("username-input").value;
+  let password = document.getElementById("password-input").value;
+  axios
+    .post(`${baseURL}/login`, {
+      username: username,
+      password: password,
+    })
+    .then(function (response) {
+      console.log(response.data.token);
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+      let modal = document.getElementById("login-modal");
+      let modalInstance = bootstrap.Modal.getInstance(modal);
+      modalInstance.hide();
+      setupUI();
+    });
+}
 
 //Show Success Alert
 function showSuccessAlert() {
@@ -85,6 +104,7 @@ function showSuccessAlert() {
 
 //Setup Ui
 function setupUI() {
+  //Token
   let token = localStorage.getItem("token");
   if (token != null) {
     document.querySelector(".login").style.display = "none";
@@ -92,12 +112,21 @@ function setupUI() {
     document.querySelector(".logout").style.display = "block";
     document.querySelector(".profile-pic").style.display = "block";
   }
+
+  //Username
   let user = JSON.parse(localStorage.getItem("user"));
   let username = document.getElementById("username");
-
   if (user != null) {
     username.style.display = "block";
     document.getElementById("username").innerHTML = "@" + user.username;
+  }
+
+  //Profile pic
+  let profileImg = localStorage.getItem("profilePicture");
+  let profilePic = document.getElementById("imgProfile");
+  if (profileImg != null) {
+    profilePic.src = profileImg;
+    console.log("test passed");
   }
 }
 setupUI();
@@ -137,43 +166,10 @@ function registerBtnClicked() {
       let modal = document.getElementById("register-modal");
       let modalInstance = bootstrap.Modal.getInstance(modal);
       modalInstance.hide();
-      localStorage.setItem(
-        "profilePicture",
-        JSON.stringify(response.data.user)
-      );
+      localStorage.setItem("profilePicture", response.data.user.profile_image);
       profilePic();
     })
     .catch(function () {
       console.log("Username already Used, choose another one");
-    });
-}
-
-//Profile Pic
-function profilePic() {
-  let profileImg = JSON.parse(localStorage.getItem("profilePicture"));
-  let profilePic = document.getElementById("imgProfile");
-  if(profileImg.profile_image != null){
-    profilePic.src = profileImg.profile_image;
-    console.log('test passed')
-  }
-}
-
-//Login User
-function loginBtnClicked() {
-  let username = document.getElementById("username-input").value;
-  let password = document.getElementById("password-input").value;
-  axios
-    .post(`${baseURL}/login`, {
-      username: username,
-      password: password,
-    })
-    .then(function (response) {
-      console.log(response.data.token);
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("user", JSON.stringify(response.data.user));
-      let modal = document.getElementById("login-modal");
-      let modalInstance = bootstrap.Modal.getInstance(modal);
-      modalInstance.hide();
-      setupUI();
     });
 }
