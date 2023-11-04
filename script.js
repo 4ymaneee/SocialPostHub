@@ -152,9 +152,12 @@ function registerBtnClicked() {
       },
     })
     .then(function (response) {
-      console.log(response);
+      let modal = document.getElementById('register-modal');
+      let modalInstance = bootstrap.Modal.getInstance(modal);
+      modalInstance.hide();
     })
     .catch(function (error) {
       console.error(error);
     });
 }
+
