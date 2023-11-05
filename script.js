@@ -230,7 +230,7 @@ function createBtnClicked() {
       showSuccessAlert('Post Created Successfully')
       setTimeout(() => {
               location.reload()
-      }, 1000);
+      }, 1500);
     })
     .catch(function (error) {
       console.error("Request failed:", error.message);
