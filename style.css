@@ -32,3 +32,18 @@ body {
     transform: rotate(360deg);
   }
 }
+
+
+.new {
+  position: fixed;
+  bottom: 23px;
+  right: 125px;
+  width: 60px;
+  height: 60px;
+  background-color: black;
+  border-radius: 50%;
+  border: 2px solid black;
+  font-size: 60px;
+  color: white;
+  text-align: center;
+}

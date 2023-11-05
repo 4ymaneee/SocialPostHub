@@ -137,6 +137,7 @@ function setupUI() {
     document.querySelector(".register").style.display = "none";
     document.querySelector(".logout").style.display = "block";
     document.querySelector(".profile-pic").style.display = "block";
+    document.querySelector('.new').style.display = "block";
   }
 
   //Username
@@ -163,6 +164,7 @@ function logoutUser() {
   document.querySelector(".logout").style.display = "none";
   document.querySelector(".profile-pic").style.display = "none";
   username.style.display = "none";
+  document.querySelector('.new').style.display = "none"
 }
 
 // Register User
@@ -195,5 +197,42 @@ function registerBtnClicked() {
     })
     .catch(function (error) {
       showDangerAlert(error.response.data.message);
+    });
+}
+
+//Create a New Post
+function createBtnClicked() {
+  let title = document.querySelector(".titlePost").value;
+  let body = document.querySelector(".bodyPost").value;
+  let image = document.querySelector(".imagePost").files[0];
+  let token = localStorage.getItem("token");
+
+  let formData = {
+    title: title,
+    body: body,
+    image: image,
+  };
+
+  let config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "multipart/form-data",
+    },
+  };
+
+  axios
+    .post("https://tarmeezacademy.com/api/v1/posts", formData, config)
+    .then(function (response) {
+      console.log("Post created successfully:", response.data);
+      let modal = document.getElementById("new-post-modal");
+      let modalInstance = bootstrap.Modal.getInstance(modal);
+      modalInstance.hide();
+      showSuccessAlert('Post Created Successfully')
+      setTimeout(() => {
+              location.reload()
+      }, 1000);
+    })
+    .catch(function (error) {
+      console.error("Request failed:", error.message);
     });
 }
