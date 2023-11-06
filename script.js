@@ -228,11 +228,10 @@ function createBtnClicked() {
       let modalInstance = bootstrap.Modal.getInstance(modal);
       modalInstance.hide();
       showSuccessAlert('Post Created Successfully')
-      setTimeout(() => {
-              location.reload()
-      }, 1500);
+      getPosts()
     })
     .catch(function (error) {
-      console.error("Request failed:", error.message);
+      let message = error.response.data.message
+      showDangerAlert(message)
     });
 }
