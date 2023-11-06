@@ -257,7 +257,6 @@ function createBtnClicked() {
 
 function changeLocation(id) {
   window.location = `post-info.html?id=${id}`
-  console.log(id)
 }
 
 

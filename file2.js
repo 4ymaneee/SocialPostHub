@@ -1,3 +1,186 @@
+//BASE URL
+const baseURL = "https://tarmeezacademy.com/api/v1";
+
+
+//Login User
+function loginBtnClicked() {
+  let username = document.getElementById("username-input").value;
+  let password = document.getElementById("password-input").value;
+  axios
+    .post(`${baseURL}/login`, {
+      username: username,
+      password: password,
+    })
+    .then(function (response) {
+      console.log(response.data.token);
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+      let modal = document.getElementById("login-modal");
+      let modalInstance = bootstrap.Modal.getInstance(modal);
+      modalInstance.hide();
+      showSuccessAlert("You Have Login successfully");
+      setupUI();
+    })
+    .catch(function (error) {
+      showDangerAlert(error.response.data.message);
+    });
+}
+
+//Show Success Alert
+function showSuccessAlert(successMessage) {
+  const alertPlaceholder = document.getElementById("succes-alert");
+  const appendAlert = (message, type) => {
+    const wrapper = document.createElement("div");
+    wrapper.innerHTML = [
+      `<div class="alert alert-${type} alert-dismissible" role="alert" id="deleteSuccesAlert">`,
+      `   <div>${message}</div>`,
+      '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+      "</div>",
+    ].join("");
+
+    alertPlaceholder.append(wrapper);
+  };
+  appendAlert(successMessage, "success");
+
+  //Delete Success Alert
+  const alert = bootstrap.Alert.getOrCreateInstance("#deleteSuccesAlert");
+  setTimeout(() => {
+    alert.close();
+  }, 3000);
+}
+//Show Danger Alert
+function showDangerAlert(errorMessage) {
+  const alertPlaceholder = document.getElementById("danger-alert");
+  const appendAlert = (message, type) => {
+    const wrapper = document.createElement("div");
+    wrapper.innerHTML = [
+      `<div class="alert alert-${type} alert-dismissible" role="alert" id="deleteDangerAlert">`,
+      `   <div>${message}</div>`,
+      '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+      "</div>",
+    ].join("");
+
+    alertPlaceholder.append(wrapper);
+  };
+  appendAlert(errorMessage, "danger");
+
+  //Delete Error Alert
+  const alert = bootstrap.Alert.getOrCreateInstance("#deleteDangerAlert");
+  setTimeout(() => {
+    alert.close();
+  }, 3000);
+}
+
+//Setup Ui
+function setupUI() {
+  //Token
+  let token = localStorage.getItem("token");
+  if (token != null) {
+    document.querySelector(".login").style.display = "none";
+    document.querySelector(".register").style.display = "none";
+    document.querySelector(".logout").style.display = "block";
+    document.querySelector(".profile-pic").style.display = "block";
+    document.querySelector(".new").style.display = "none";
+  }
+
+  //Username
+  let user = JSON.parse(localStorage.getItem("user"));
+  let username = document.getElementById("username");
+  let profilePic = document.getElementById("imgProfile");
+  if (user != null) {
+    username.style.display = "block";
+    document.getElementById("username").innerHTML = "@" + user.username;
+    //Profile pic
+    profilePic.src = user.profile_image;
+  }
+}
+setupUI();
+
+//Logout user
+function logoutUser() {
+  showSuccessAlert("You Have Logout successfully");
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+  localStorage.removeItem("profilePicture");
+  document.querySelector(".login").style.display = "block";
+  document.querySelector(".register").style.display = "block";
+  document.querySelector(".logout").style.display = "none";
+  document.querySelector(".profile-pic").style.display = "none";
+  username.style.display = "none";
+  document.querySelector(".new").style.display = "none";
+}
+
+// Register User
+function registerBtnClicked() {
+  let image = document.getElementById("registerImage").files[0];
+  let name = document.getElementById("registerName").value;
+  let username = document.getElementById("registerUsername").value;
+  let password = document.getElementById("registerPassword").value;
+  let formData = {
+    image: image,
+    name: name,
+    username: username,
+    password: password,
+  };
+
+  axios
+    .post("https://tarmeezacademy.com/api/v1/register", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .then(function (response) {
+      let modal = document.getElementById("register-modal");
+      let modalInstance = bootstrap.Modal.getInstance(modal);
+      modalInstance.hide();
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+      showSuccessAlert("New User Registered Successfully");
+      setupUI();
+    })
+    .catch(function (error) {
+      showDangerAlert(error.response.data.message);
+    });
+}
+
+//Create a New Post
+function createBtnClicked() {
+  let title = document.querySelector(".titlePost").value;
+  let body = document.querySelector(".bodyPost").value;
+  let image = document.querySelector(".imagePost").files[0];
+  let token = localStorage.getItem("token");
+
+  let formData = {
+    title: title,
+    body: body,
+    image: image,
+  };
+
+  let config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "multipart/form-data",
+    },
+  };
+
+  axios
+    .post("https://tarmeezacademy.com/api/v1/posts", formData, config)
+    .then(function (response) {
+      console.log("Post created successfully:", response.data);
+      let modal = document.getElementById("new-post-modal");
+      let modalInstance = bootstrap.Modal.getInstance(modal);
+      modalInstance.hide();
+      showSuccessAlert("Post Created Successfully");
+
+    })
+    .catch(function (error) {
+      let message = error.response.data.message;
+      showDangerAlert(message);
+    });
+}
+
+
+
 // Get the URL parameter
 const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get("id");
