@@ -1,13 +1,28 @@
 //BASE URL
 const baseURL = "https://tarmeezacademy.com/api/v1";
+let currentPage = 1;
+
+//==== INFINITE SCROLL ====//
+window.addEventListener("scroll", function () {
+  const endOfPage =
+    window.innerHeight + window.pageYOffset >= document.body.offsetHeight;
+  if (endOfPage) {
+    getPosts(false, currentPage + 1);
+  }
+});
+//====// INFINITE SCROLL //====//
 
 //Get All Posts
-function getPosts() {
-  axios.get(`${baseURL}/posts?limit=4`).then((response) => {
+function getPosts(reload = true, page = 1) {
+  axios.get(`${baseURL}/posts?limit=10&page=${page}`).then((response) => {
     let posts = response.data.data;
 
     let allPosts = document.getElementById("posts");
-    allPosts.innerHTML = "";
+
+    if (reload) {
+      allPosts.innerHTML = "";
+    }
+
     for (let x = 0; x < posts.length; x++) {
       let username = posts[x].author.username;
       let profilePic = posts[x].author.profile_image;
@@ -137,7 +152,7 @@ function setupUI() {
     document.querySelector(".register").style.display = "none";
     document.querySelector(".logout").style.display = "block";
     document.querySelector(".profile-pic").style.display = "block";
-    document.querySelector('.new').style.display = "block";
+    document.querySelector(".new").style.display = "block";
   }
 
   //Username
@@ -164,7 +179,7 @@ function logoutUser() {
   document.querySelector(".logout").style.display = "none";
   document.querySelector(".profile-pic").style.display = "none";
   username.style.display = "none";
-  document.querySelector('.new').style.display = "none"
+  document.querySelector(".new").style.display = "none";
 }
 
 // Register User
@@ -227,11 +242,11 @@ function createBtnClicked() {
       let modal = document.getElementById("new-post-modal");
       let modalInstance = bootstrap.Modal.getInstance(modal);
       modalInstance.hide();
-      showSuccessAlert('Post Created Successfully')
-      getPosts()
+      showSuccessAlert("Post Created Successfully");
+      getPosts();
     })
     .catch(function (error) {
-      let message = error.response.data.message
-      showDangerAlert(message)
+      let message = error.response.data.message;
+      showDangerAlert(message);
     });
 }
