@@ -1,13 +1,13 @@
 //BASE URL
 const baseURL = "https://tarmeezacademy.com/api/v1";
 let currentPage = 1;
-
-//==== INFINITE SCROLL ====//
+let lastPage = 1;
+//==== INFINITE SCROLL (pagination)====//
 window.addEventListener("scroll", function () {
-  const endOfPage =
-    window.innerHeight + window.pageYOffset >= document.body.offsetHeight;
-  if (endOfPage) {
-    getPosts(false, currentPage + 1);
+  const endOfPage = window.scrollY + window.innerHeight + 1 >=document.documentElement.scrollHeight;
+
+  if (endOfPage && currentPage <= lastPage) {
+    getPosts(false, (currentPage += 1));
   }
 });
 //====// INFINITE SCROLL //====//
@@ -16,6 +16,8 @@ window.addEventListener("scroll", function () {
 function getPosts(reload = true, page = 1) {
   axios.get(`${baseURL}/posts?limit=10&page=${page}`).then((response) => {
     let posts = response.data.data;
+
+    lastPage = response.data.meta.last_page;
 
     let allPosts = document.getElementById("posts");
 
