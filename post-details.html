@@ -87,41 +87,6 @@
         </div>
     </div>
     <!-- REGISTER MODAL -->
-
-    <!-- New POST MODAL -->
-    <div class="modal fade" id="new-post-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Create a New Post</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label ">Title:</label>
-                            <input type="text" class="form-control titlePost" >
-                        </div>
-                        <div class="mb-3">
-                            <label for="message-text" class="col-form-label ">Content:</label>
-                            <textarea class="form-control bodyPost" id="message-text"></textarea>
-                          </div>
-                        <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label ">Image:</label>
-                            <input type="file" class="form-control imagePost" >
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="closeBtn"
-                        onclick="createBtnClicked()">Create</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- New POST MODAL -->
-
     <!-- ===== MODALS ===== -->
 
     <!-- ==== ALERTS ==== -->
@@ -135,10 +100,6 @@
         style="position: fixed; bottom: 0px; right: 10px; width: 26%; z-index: 9999;"></div>
     <!-- DANGER ALERT -->
     <!-- ==== ALERTS ==== -->
-
-    <!-- NEW POST -->
-    <div class="bg-primary new" id="add-btn" data-bs-toggle="modal" data-bs-target="#new-post-modal" style="display: none;">+</div>
-    <!-- NEW POST -->
 
     <!-- NAVIGATION BAR CONTAINER -->
     <div class="container pt-3">
@@ -193,9 +154,9 @@
                 <!-- POSTS -->
                 <div id="posts">
                     <!-- LOADER -->
-                    <!-- <div class="wow">
+                    <div class="wow">
                         <div class="loader"></div>
-                    </div> -->
+                    </div>
                     <!-- LOADER -->
                     <!-- POST -->
                     <!-- <div class="card shadow my-5"> 
@@ -236,7 +197,7 @@
 
     <!-- MAIN CONTENT -->
 
-    <script src="file2.js"></script>
+    <script src="postDetails.js"></script>
 </body>
 
 </html>

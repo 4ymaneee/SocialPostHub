@@ -80,7 +80,6 @@ function setupUI() {
     document.querySelector(".register").style.display = "none";
     document.querySelector(".logout").style.display = "block";
     document.querySelector(".profile-pic").style.display = "block";
-    document.querySelector(".new").style.display = "none";
   }
 
   //Username
@@ -186,8 +185,8 @@ const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get("id");
 console.log(id); // This will log the 'id' from the URL
 
-//Get Post About
-function getPostAbout(id) {
+//Get Post Details
+function getPostDetails(id) {
   axios
     .get(`https://tarmeezacademy.com/api/v1/posts/${id}?limit=1`)
     .then((response) => {
@@ -248,4 +247,4 @@ function getPostAbout(id) {
     });
 }
 
-getPostAbout(id);
+getPostDetails(id);
