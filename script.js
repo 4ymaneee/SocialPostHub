@@ -265,13 +265,14 @@ function getPostAbout(id) {
   // console.log(id)
   // window.location = "post-about.html"
   axios.get(`https://tarmeezacademy.com/api/v1/posts/${id}?limit=1`).then((response) => {
-    let post = response.data.data;
     let currentPost = document.getElementById("posts");
+    currentPost.innerHTML = ''
+    let post = response.data.data;
+    
     console.log(post)
 
     currentPost.innerHTML = ''
     let owner = post.author.username
-    // let id = post.id;
     let username = post.author.username;
     let profilePic = post.author.profile_image;
     let postImage = post.image;
@@ -288,7 +289,7 @@ function getPostAbout(id) {
     for (let i = 0; i < tags.length; i++) {
       tag += `<span class="btn btn-secondary rounded-pill me-1">${tags[i].name}</span>`;
     }
-    currentPosts.innerHTML += `<h1 class="mt-5 owner" style="font-weight: 700;" >@${owner} Post</h1>
+    currentPost.innerHTML = `<h1 class="mt-5 owner" style="font-weight: 700;" >@${owner} Post</h1>
     <div class="card shadow my-5">
             <div class="card-header" >
                 <img src="${profilePic}" alt="" style="width: 40px; height: 40px;"
