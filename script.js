@@ -26,7 +26,7 @@ function getPosts(reload = true, page = 1) {
     }
 
     for (let x = 0; x < posts.length; x++) {
-      let id = posts[x].id
+      let postId = posts[x].id
       let username = posts[x].author.username;
       let profilePic = posts[x].author.profile_image;
       let postImage = posts[x].image;
@@ -49,7 +49,7 @@ function getPosts(reload = true, page = 1) {
                     class="rounded-circle border border-3 profile-pic">
                 <b >@${username}</b>
             </div>
-            <div class="card-body" onclick="changeLocation(${id})" style="cursor: pointer;">
+            <div class="card-body" onclick="changeLocation(${postId})" style="cursor: pointer;">
                 <img class="w-100 rounded"
                     src="${postImage}"
                     alt="">
@@ -254,9 +254,9 @@ function createBtnClicked() {
     });
 }
 
-
-function changeLocation(id) {
-  window.location = `post-details.html?id=${id}`
+//Change Page Location to Post Details
+function changeLocation(postId) {
+  window.location = `post-details.html?postId=${postId}`
 }
 
 

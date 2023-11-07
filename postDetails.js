@@ -181,9 +181,9 @@ function createBtnClicked() {
 
 
 // Get the URL parameter
-const urlParams = new URLSearchParams(window.location.search);
-const id = urlParams.get("id");
-console.log(id); // This will log the 'id' from the URL
+let urlParams = new URLSearchParams(window.location.search);
+let postId = urlParams.get("postId");
+console.log(postId); // This will log the 'id' from the URL
 
 //Get Post Details
 function getPostDetails(id) {
@@ -247,4 +247,4 @@ function getPostDetails(id) {
     });
 }
 
-getPostDetails(id);
+getPostDetails(postId);
