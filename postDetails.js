@@ -259,7 +259,7 @@ function getPostDetails(id) {
               </div>
               <div class="add-comment" style="width: 100%; height: 59px; border: 1px solid rgba(0, 0, 0, 0.226) ; padding: 4px 0 4px 0;">
                         <input type="text" style="width: 83%; height: 100%; border: none; padding-left: 10px; outline: none;" placeholder="Write a Comment..." class="comment-input">
-                        <button class="btn btn-primary send-btn" style="width: 16%; height: 100%; ;">Send</button>
+                        <button class="btn btn-primary send-btn" style="width: 16%; height: 100%; ;" onclick="createNewComment()">Send</button>
               </div>
       </div>`;
     });
@@ -267,24 +267,28 @@ function getPostDetails(id) {
 
 getPostDetails(postId);
 
-// Create a Comment
-// function createComment(postId) {
 
-//   let Data = {
-//     body: comment,
-//   };
+//Create Comment
+function createNewComment(id) {
+  let comment = document.querySelector('.comment-input').value
+  let token = localStorage.getItem('token')
+  let data = {
+    body: comment
+  }
 
-//   let config = {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   };
-//   axios
-//     .post(`${baseUrl}/posts/7/comments`, Data, config)
-//     .then(function (response) {
-//       console.log(response);
-//     })
-//     .catch(function (error) {
-//       console.log(error);
-//     });
-// }
+  let config = {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }
+  axios.post(`${baseURL}/posts/${postId}/comments`, data, config)
+  .then(function (response) {
+    console.log(response);
+    showSuccessAlert('Comment Added Successfully')
+    getPostDetails(postId)
+  })
+  .catch(function (error) {
+    console.log(error);
+    showDangerAlert('You Have to Login First')
+  });
+}
