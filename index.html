@@ -93,7 +93,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Create a New Post</h1>
+                    <h1 class="modal-title fs-5" id="post-modal-title">Create a New Post</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
@@ -114,7 +114,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="closeBtn"
+                    <button type="button" class="btn btn-primary edit-post-btn" id="closeBtn"
                         onclick="createBtnClicked()">Create</button>
                 </div>
             </div>
@@ -127,7 +127,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Post</h1>
+                    <h1 class="modal-title fs-5" id="post-modal-title">Edit Post</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
@@ -138,7 +138,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="message-text" class="col-form-label ">Content:</label>
-                            <textarea class="form-control editBody"></textarea>
+                            <textarea class="form-control editBody" ></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label ">Image:</label>
@@ -148,13 +148,13 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="closeBtn"
-                        onclick="createBtnClicked()">Edit</button>
+                    <button type="button" class="btn btn-primary edit-poste" id="closeBtn" onclick="editPostClicked()">Edit</button>
                 </div>
             </div>
         </div>
     </div>
     <!-- Edit POST MODAL -->
+
     <!-- ===== MODALS ===== -->
 
     <!-- ==== ALERTS ==== -->
