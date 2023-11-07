@@ -264,8 +264,10 @@ function changeLocation(postId) {
   window.location = `post-details.html?postId=${postId}`;
 }
 
+let currentPostId;
 //Edit Post
 function editBtnClicked(postId) {
+  currentPostId = postId;
   console.log(postId);
   axios
     .get(`${baseURL}/posts/${postId}`)
@@ -293,15 +295,22 @@ function editPostClicked() {
   let config = {
     headers: {
       Authorization: `Bearer ${token}`,
+      // "Content-Type": "multipart/form-data",
     },
   };
   axios
-    .put(`${baseURL}/posts/9442`, editedData, config)
+    .put(`${baseURL}/posts/${currentPostId}`, editedData, config)
     .then(function (response) {
       console.log(response);
       console.log("post edited succesfully");
+      let modal = document.getElementById("edit-post-modal");
+      let modalInstance = bootstrap.Modal.getInstance(modal);
+      modalInstance.hide();
+      getPosts();
+      showSuccessAlert('Edited Post Successfully')
     })
     .catch(function (error) {
       console.log(error);
+      showDangerAlert("You Can't Edited Post You Don't Own")
     });
 }
