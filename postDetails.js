@@ -188,7 +188,7 @@ function getPostDetails(id) {
     .then((response) => {
       let post = response.data.data;
       let postContent = document.getElementById("posts");
-      console.log(post);
+      // console.log(post);
 
       postContent.innerHTML = "";
       let owner = post.author.username;
@@ -211,11 +211,11 @@ function getPostDetails(id) {
       }
       //Get Comments
       let usernameOfComment = post.comments;
-  
+
       let commentContent = post.comments;
       let profilePicOfComment = post.comments;
       let comments = post.comments;
-      let commentHTML = ''
+      let commentHTML = "";
       for (let z = 0; z < comments.length; z++) {
         commentHTML += `<div class="comment" style="display: flex; padding-left: 12px; margin-top: 14px; border-bottom: 1px solid rgba(0, 0, 0, 0.226);">
                         <img src="${profilePicOfComment[z].author.profile_image}" alt="" style="width: 47px; height: 47px;"
@@ -257,8 +257,36 @@ function getPostDetails(id) {
               <div class="comments" style="display: flex; flex-direction: column; background-color: rgba(164, 225, 255, 0.603);">
                       ${commentHTML}      
               </div>
-          </div>`;
+              <div class="add-comment" style="width: 100%; height: 59px; border: 1px solid rgba(0, 0, 0, 0.226) ; padding: 4px 0 4px 0;">
+                        <input type="text" style="width: 83%; height: 100%; border: none; padding-left: 10px; outline: none;" placeholder="Write a Comment..." class="comment-input">
+                        <button class="btn btn-primary send-btn" style="width: 16%; height: 100%; ;">Send</button>
+              </div>
+      </div>`;
     });
 }
 
-// getPostDetails(postId);
+getPostDetails(postId)
+
+
+
+// Create a Comment
+// function createComment(postId) {
+ 
+//   let Data = {
+//     body: comment,
+//   };
+
+//   let config = {
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   };
+//   axios
+//     .post(`${baseUrl}/posts/7/comments`, Data, config)
+//     .then(function (response) {
+//       console.log(response);
+//     })
+//     .catch(function (error) {
+//       console.log(error);
+//     });
+// }
