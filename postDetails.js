@@ -188,15 +188,13 @@ console.log(postId); // This will log the 'id' from the URL
 //Get Post Details
 function getPostDetails(id) {
   axios
-    .get(`https://tarmeezacademy.com/api/v1/posts/${id}?limit=1`)
+    .get(`https://tarmeezacademy.com/api/v1/posts/${id}`)
     .then((response) => {
-      let currentPost = document.getElementById("posts");
-      currentPost.innerHTML = "";
       let post = response.data.data;
-
+      let postContent = document.getElementById("posts");
       console.log(post);
 
-      currentPost.innerHTML = "";
+      postContent.innerHTML = "";
       let owner = post.author.username;
       let username = post.author.username;
       let profilePic = post.author.profile_image;
@@ -214,7 +212,7 @@ function getPostDetails(id) {
       for (let i = 0; i < tags.length; i++) {
         tag += `<span class="btn btn-secondary rounded-pill me-1">${tags[i].name}</span>`;
       }
-      currentPost.innerHTML = `<h1 class="mt-5 owner" style="font-weight: 700;" >@${owner} Post</h1>
+      postContent.innerHTML = `<h1 class="mt-5 owner" style="font-weight: 700;" >@${owner} Post</h1>
       <div class="card shadow my-5">
               <div class="card-header" >
                   <img src="${profilePic}" alt="" style="width: 40px; height: 40px;"
