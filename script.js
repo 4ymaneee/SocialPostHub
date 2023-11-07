@@ -267,9 +267,41 @@ function changeLocation(postId) {
 //Edit Post
 function editBtnClicked(postId) {
   console.log(postId);
+  axios
+    .get(`${baseURL}/posts/${postId}`)
+    .then(function (response) {
+      let post = response.data.data;
+      document.querySelector(".editTitle").value = post.title;
+      document.querySelector(".editBody").value = post.body;
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    });
 }
 
-
 function editPostClicked() {
-  console.log('post edited succesfully')
+  let token = localStorage.getItem("token");
+  let editedTitle = document.querySelector(".editTitle").value;
+  let editedBody = document.querySelector(".editBody").value;
+  // let editedImage = document.querySelector(".editImage").files[0];
+  let editedData = {
+    title: editedTitle,
+    body: editedBody,
+    // image: editedImage,
+  };
+  let config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  axios
+    .put(`${baseURL}/posts/9442`, editedData, config)
+    .then(function (response) {
+      console.log(response);
+      console.log("post edited succesfully");
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 }
