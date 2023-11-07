@@ -4,7 +4,9 @@ let currentPage = 1;
 let lastPage = 1;
 //==== INFINITE SCROLL (pagination)====//
 window.addEventListener("scroll", function () {
-  const endOfPage = window.scrollY + window.innerHeight + 1 >=document.documentElement.scrollHeight;
+  const endOfPage =
+    window.scrollY + window.innerHeight + 1 >=
+    document.documentElement.scrollHeight;
 
   if (endOfPage && currentPage <= lastPage) {
     getPosts(false, (currentPage += 1));
@@ -26,7 +28,7 @@ function getPosts(reload = true, page = 1) {
     }
 
     for (let x = 0; x < posts.length; x++) {
-      let postId = posts[x].id
+      let postId = posts[x].id;
       let username = posts[x].author.username;
       let profilePic = posts[x].author.profile_image;
       let postImage = posts[x].image;
@@ -256,7 +258,5 @@ function createBtnClicked() {
 
 //Change Page Location to Post Details
 function changeLocation(postId) {
-  window.location = `post-details.html?postId=${postId}`
+  window.location = `post-details.html?postId=${postId}`;
 }
-
-

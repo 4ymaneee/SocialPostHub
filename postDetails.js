@@ -265,13 +265,11 @@ function getPostDetails(id) {
     });
 }
 
-getPostDetails(postId)
-
-
+getPostDetails(postId);
 
 // Create a Comment
 // function createComment(postId) {
- 
+
 //   let Data = {
 //     body: comment,
 //   };
