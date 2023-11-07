@@ -267,28 +267,28 @@ function getPostDetails(id) {
 
 getPostDetails(postId);
 
-
 //Create Comment
 function createNewComment(id) {
-  let comment = document.querySelector('.comment-input').value
-  let token = localStorage.getItem('token')
+  let comment = document.querySelector(".comment-input").value;
+  let token = localStorage.getItem("token");
   let data = {
-    body: comment
-  }
+    body: comment,
+  };
 
   let config = {
     headers: {
-      Authorization: `Bearer ${token}`
-    }
-  }
-  axios.post(`${baseURL}/posts/${postId}/comments`, data, config)
-  .then(function (response) {
-    console.log(response);
-    showSuccessAlert('Comment Added Successfully')
-    getPostDetails(postId)
-  })
-  .catch(function (error) {
-    console.log(error);
-    showDangerAlert('You Have to Login First')
-  });
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  axios
+    .post(`${baseURL}/posts/${postId}/comments`, data, config)
+    .then(function (response) {
+      console.log(response);
+      showSuccessAlert("Comment Added Successfully");
+      getPostDetails(postId);
+    })
+    .catch(function (error) {
+      console.log(error);
+      showDangerAlert("You Have to Login First");
+    });
 }
