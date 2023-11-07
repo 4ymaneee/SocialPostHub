@@ -1,7 +1,6 @@
 //BASE URL
 const baseURL = "https://tarmeezacademy.com/api/v1";
 
-
 //Login User
 function loginBtnClicked() {
   let username = document.getElementById("username-input").value;
@@ -170,15 +169,12 @@ function createBtnClicked() {
       let modalInstance = bootstrap.Modal.getInstance(modal);
       modalInstance.hide();
       showSuccessAlert("Post Created Successfully");
-
     })
     .catch(function (error) {
       let message = error.response.data.message;
       showDangerAlert(message);
     });
 }
-
-
 
 // Get the URL parameter
 let urlParams = new URLSearchParams(window.location.search);
@@ -203,6 +199,7 @@ function getPostDetails(id) {
       let postTitle = post.title;
       let body = post.body;
       let commentsCount = post.comments_count;
+
       let emptyTitle = "";
       if (postTitle == null) {
         postTitle = emptyTitle;
@@ -211,6 +208,23 @@ function getPostDetails(id) {
       let tag = "";
       for (let i = 0; i < tags.length; i++) {
         tag += `<span class="btn btn-secondary rounded-pill me-1">${tags[i].name}</span>`;
+      }
+      //Get Comments
+      let usernameOfComment = post.comments;
+  
+      let commentContent = post.comments;
+      let profilePicOfComment = post.comments;
+      let comments = post.comments;
+      let commentHTML = ''
+      for (let z = 0; z < comments.length; z++) {
+        commentHTML += `<div class="comment" style="display: flex; padding-left: 12px; margin-top: 14px; border-bottom: 1px solid rgba(0, 0, 0, 0.226);">
+                        <img src="${profilePicOfComment[z].author.profile_image}" alt="" style="width: 47px; height: 47px;"
+                            class="rounded-circle border border-3 profile-pic">
+                        <div class="comment-content" style="margin-left: 7px;">
+                            <b>@${usernameOfComment[z].author.username}</b>
+                          <p>${commentContent[z].body} </p>
+                        </div>
+                    </div>`;
       }
       postContent.innerHTML = `<h1 class="mt-5 owner" style="font-weight: 700;" >@${owner} Post</h1>
       <div class="card shadow my-5">
@@ -238,11 +252,13 @@ function getPostDetails(id) {
                       <i id="tag-content"> 
                       ${tag}
                       </i>
-  
                   </div>
+              </div>
+              <div class="comments" style="display: flex; flex-direction: column; background-color: rgba(164, 225, 255, 0.603);">
+                      ${commentHTML}      
               </div>
           </div>`;
     });
 }
 
-getPostDetails(postId);
+// getPostDetails(postId);
