@@ -28,6 +28,15 @@ function getPosts(reload = true, page = 1) {
     }
 
     for (let x = 0; x < posts.length; x++) {
+      //Show Or Hide Edit Btn
+      let user = JSON.parse(localStorage.getItem("user"));
+      let isMyPost = user != null && posts[x].author.id == user.id;
+      let editBtn = "";
+      if (isMyPost) {
+        editBtn = `<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit-post-modal" onclick="editBtnClicked('${encodeURIComponent(
+          JSON.stringify(posts[x])
+        )}')">Edit</button>`;
+      }
       let postId = posts[x].id;
       let username = posts[x].author.username;
       let profilePic = posts[x].author.profile_image;
@@ -52,9 +61,7 @@ function getPosts(reload = true, page = 1) {
               class="rounded-circle border border-3 profile-pic">
           <b>@${username}</b>
       </div>
-      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit-post-modal" onclick="editBtnClicked('${encodeURIComponent(
-        JSON.stringify(posts[x])
-      )}')">Edit</button>
+      ${editBtn}
      </div>
             <div class="card-body" onclick="changeLocation(${postId})" style="cursor: pointer;">
                 <img class="w-100 rounded"
@@ -102,6 +109,7 @@ function loginBtnClicked() {
       modalInstance.hide();
       showSuccessAlert("You Have Login successfully");
       setupUI();
+      getPosts()
     })
     .catch(function (error) {
       showDangerAlert(error.response.data.message);
@@ -190,6 +198,7 @@ function logoutUser() {
   document.querySelector(".profile-pic").style.display = "none";
   username.style.display = "none";
   document.querySelector(".new").style.display = "none";
+  getPosts()
 }
 
 // Register User
@@ -219,6 +228,7 @@ function registerBtnClicked() {
       localStorage.setItem("user", JSON.stringify(response.data.user));
       showSuccessAlert("New User Registered Successfully");
       setupUI();
+      getPosts()
     })
     .catch(function (error) {
       showDangerAlert(error.response.data.message);
@@ -228,17 +238,17 @@ function registerBtnClicked() {
 //Create and Edit Post
 function createBtnClicked() {
   let postID = document.getElementById("post-id-input").value;
-  let isCreate = postID == null || postID == "";
+  // let isCreate = postID == null || postID == "";
   console.log(postID);
   let title = document.querySelector(".titlePost").value;
   let body = document.querySelector(".bodyPost").value;
   let image = document.querySelector(".imagePost").files[0];
   let token = localStorage.getItem("token");
 
-  let formData = new FormData()
-  formData.append('body', body)
-  formData.append('title', title)
-  formData.append('image', image)
+  let formData = new FormData();
+  formData.append("body", body);
+  formData.append("title", title);
+  formData.append("image", image);
 
   let config = {
     headers: {
@@ -247,40 +257,39 @@ function createBtnClicked() {
     },
   };
   let url = "";
-  if (isCreate) {
-    url = `${baseURL}/posts`;
-    axios
-      .post(url, formData, config)
-      .then(function (response) {
-        console.log("Post created successfully:", response.data);
-        let modal = document.getElementById("new-post-modal");
-        let modalInstance = bootstrap.Modal.getInstance(modal);
-        modalInstance.hide();
-        showSuccessAlert("Post Created Successfully");
-        getPosts();
-      })
-      .catch(function (error) {
-        let message = error.response.data.message;
-        showDangerAlert(message);
-      });
-  } else {
-    formData.append("_method", "put")
-    url = `${baseURL}/posts/${postID}`;
-    axios
-      .post(url, formData, config)
-      .then(function (response) {
-        console.log("Post Edited successfully:", response.data);
-        let modal = document.getElementById("edit-post-modal");
-        let modalInstance = bootstrap.Modal.getInstance(modal);
-        modalInstance.hide();
-        showSuccessAlert("Post Edited Successfully");
-        getPosts();
-      })
-      .catch(function (error) {
-        let message = error.response.data.message;
-        showDangerAlert(message);
-      });
-  }
+  // if (isCreate) {
+  url = `${baseURL}/posts`;
+  axios
+    .post(url, formData, config)
+    .then(function (response) {
+      console.log("Post created successfully:", response.data);
+      let modal = document.getElementById("new-post-modal");
+      let modalInstance = bootstrap.Modal.getInstance(modal);
+      modalInstance.hide();
+      showSuccessAlert("Post Created Successfully");
+      getPosts();
+    })
+    .catch(function (error) {
+      let message = error.response.data.message;
+      showDangerAlert(message);
+    });
+  // } else {
+  //   formData.append("_method", "put")
+  // url = `${baseURL}/posts/${postID}`;
+  // axios
+  //   .post(url, formData, config)
+  //   .then(function (response) {
+  //     console.log("Post Edited successfully:", response.data);
+  //     let modal = document.getElementById("edit-post-modal");
+  //     let modalInstance = bootstrap.Modal.getInstance(modal);
+  //     modalInstance.hide();
+  //     showSuccessAlert("Post Edited Successfully");
+  //     getPosts();
+  //   })
+  //   .catch(function (error) {
+  //     let message = error.response.data.message;
+  //     showDangerAlert(message);
+  //   });
 }
 
 //Change Page Location to Post Details
@@ -295,5 +304,6 @@ function editBtnClicked(postObject) {
   document.getElementById("post-id-input").value = post.id;
   document.querySelector(".editTitle").value = post.title;
   document.querySelector(".editBody").value = post.body;
+  console.log("post edited successfully");
   // document.querySelector
 }
