@@ -135,6 +135,7 @@
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label ">Title:</label>
                             <input type="text" class="form-control editTitle">
+                            <input type="hidden" id="post-id-input" value="">
                         </div>
                         <div class="mb-3">
                             <label for="message-text" class="col-form-label ">Content:</label>
@@ -149,7 +150,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary edit-poste" id="closeBtn"
-                        onclick="editPostClicked()">Edit</button>
+                        onclick="createBtnClicked()">Edit</button>
                 </div>
             </div>
         </div>

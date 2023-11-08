@@ -18,7 +18,7 @@ window.addEventListener("scroll", function () {
 function getPosts(reload = true, page = 1) {
   axios.get(`${baseURL}/posts?limit=10&page=${page}`).then((response) => {
     let posts = response.data.data;
-
+    console.log(posts);
     lastPage = response.data.meta.last_page;
 
     let allPosts = document.getElementById("posts");
@@ -52,7 +52,9 @@ function getPosts(reload = true, page = 1) {
               class="rounded-circle border border-3 profile-pic">
           <b>@${username}</b>
       </div>
-      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit-post-modal" onclick="editBtnClicked(${postId})">Edit</button>
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit-post-modal" onclick="editBtnClicked('${encodeURIComponent(
+        JSON.stringify(posts[x])
+      )}')">Edit</button>
      </div>
             <div class="card-body" onclick="changeLocation(${postId})" style="cursor: pointer;">
                 <img class="w-100 rounded"
@@ -223,18 +225,20 @@ function registerBtnClicked() {
     });
 }
 
-//Create a New Post
+//Create and Edit Post
 function createBtnClicked() {
+  let postID = document.getElementById("post-id-input").value;
+  let isCreate = postID == null || postID == "";
+  console.log(postID);
   let title = document.querySelector(".titlePost").value;
   let body = document.querySelector(".bodyPost").value;
   let image = document.querySelector(".imagePost").files[0];
   let token = localStorage.getItem("token");
 
-  let formData = {
-    title: title,
-    body: body,
-    image: image,
-  };
+  let formData = new FormData()
+  formData.append('body', body)
+  formData.append('title', title)
+  formData.append('image', image)
 
   let config = {
     headers: {
@@ -242,21 +246,41 @@ function createBtnClicked() {
       "Content-Type": "multipart/form-data",
     },
   };
-
-  axios
-    .post("https://tarmeezacademy.com/api/v1/posts", formData, config)
-    .then(function (response) {
-      console.log("Post created successfully:", response.data);
-      let modal = document.getElementById("new-post-modal");
-      let modalInstance = bootstrap.Modal.getInstance(modal);
-      modalInstance.hide();
-      showSuccessAlert("Post Created Successfully");
-      getPosts();
-    })
-    .catch(function (error) {
-      let message = error.response.data.message;
-      showDangerAlert(message);
-    });
+  let url = "";
+  if (isCreate) {
+    url = `${baseURL}/posts`;
+    axios
+      .post(url, formData, config)
+      .then(function (response) {
+        console.log("Post created successfully:", response.data);
+        let modal = document.getElementById("new-post-modal");
+        let modalInstance = bootstrap.Modal.getInstance(modal);
+        modalInstance.hide();
+        showSuccessAlert("Post Created Successfully");
+        getPosts();
+      })
+      .catch(function (error) {
+        let message = error.response.data.message;
+        showDangerAlert(message);
+      });
+  } else {
+    formData.append("_method", "put")
+    url = `${baseURL}/posts/${postID}`;
+    axios
+      .post(url, formData, config)
+      .then(function (response) {
+        console.log("Post Edited successfully:", response.data);
+        let modal = document.getElementById("edit-post-modal");
+        let modalInstance = bootstrap.Modal.getInstance(modal);
+        modalInstance.hide();
+        showSuccessAlert("Post Edited Successfully");
+        getPosts();
+      })
+      .catch(function (error) {
+        let message = error.response.data.message;
+        showDangerAlert(message);
+      });
+  }
 }
 
 //Change Page Location to Post Details
@@ -264,53 +288,12 @@ function changeLocation(postId) {
   window.location = `post-details.html?postId=${postId}`;
 }
 
-let currentPostId;
 //Edit Post
-function editBtnClicked(postId) {
-  currentPostId = postId;
-  console.log(postId);
-  axios
-    .get(`${baseURL}/posts/${postId}`)
-    .then(function (response) {
-      let post = response.data.data;
-      document.querySelector(".editTitle").value = post.title;
-      document.querySelector(".editBody").value = post.body;
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    });
-}
-
-function editPostClicked() {
-  let token = localStorage.getItem("token");
-  let editedTitle = document.querySelector(".editTitle").value;
-  let editedBody = document.querySelector(".editBody").value;
-  // let editedImage = document.querySelector(".editImage").files[0];
-  let editedData = {
-    title: editedTitle,
-    body: editedBody,
-    // image: editedImage,
-  };
-  let config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      // "Content-Type": "multipart/form-data",
-    },
-  };
-  axios
-    .put(`${baseURL}/posts/${currentPostId}`, editedData, config)
-    .then(function (response) {
-      console.log(response);
-      console.log("post edited succesfully");
-      let modal = document.getElementById("edit-post-modal");
-      let modalInstance = bootstrap.Modal.getInstance(modal);
-      modalInstance.hide();
-      getPosts();
-      showSuccessAlert("Edited Post Successfully");
-    })
-    .catch(function (error) {
-      console.log(error);
-      showDangerAlert("You Can't Edited Post You Don't Own");
-    });
+function editBtnClicked(postObject) {
+  let post = JSON.parse(decodeURIComponent(postObject));
+  console.log(post);
+  document.getElementById("post-id-input").value = post.id;
+  document.querySelector(".editTitle").value = post.title;
+  document.querySelector(".editBody").value = post.body;
+  // document.querySelector
 }
