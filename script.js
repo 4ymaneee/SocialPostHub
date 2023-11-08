@@ -307,10 +307,10 @@ function editPostClicked() {
       let modalInstance = bootstrap.Modal.getInstance(modal);
       modalInstance.hide();
       getPosts();
-      showSuccessAlert('Edited Post Successfully')
+      showSuccessAlert("Edited Post Successfully");
     })
     .catch(function (error) {
       console.log(error);
-      showDangerAlert("You Can't Edited Post You Don't Own")
+      showDangerAlert("You Can't Edited Post You Don't Own");
     });
 }
