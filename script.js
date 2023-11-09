@@ -307,3 +307,5 @@ function editBtnClicked(postObject) {
   console.log("post edited successfully");
   // document.querySelector
 }
+
+//Delete Post
