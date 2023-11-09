@@ -1,10 +1,10 @@
-# SocialPostHub 🚀
+# ConnectHub 🚀
 
 This repository contains the code for a web application, "SocialPostHub," developed using HTML, JavaScript, and CSS. The application allows users to view and interact with posts, log in, register, and more.
 
 ## Project Description 📝
 
-"SocialPostHub" is a dynamic web application designed to foster connections and content sharing within a vibrant online community. This platform is built using HTML, JavaScript, CSS, and relies on external libraries like Axios and Bootstrap to provide an engaging user experience.
+"ConnectHub" is a dynamic web application designed to foster connections and content sharing within a vibrant online community. This platform is built using HTML, JavaScript, CSS, and relies on external libraries like Axios and Bootstrap to provide an engaging user experience.
 
 ## Features 🌟
 
