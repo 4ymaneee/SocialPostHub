@@ -28,14 +28,18 @@ function getPosts(reload = true, page = 1) {
     }
 
     for (let x = 0; x < posts.length; x++) {
-      //Show Or Hide Edit Btn
+      //Show Or Hide Edit and Delete Btn
       let user = JSON.parse(localStorage.getItem("user"));
       let isMyPost = user != null && posts[x].author.id == user.id;
       let editBtn = "";
+      let deleteBtn = "";
       if (isMyPost) {
         editBtn = `<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit-post-modal" onclick="editBtnClicked('${encodeURIComponent(
           JSON.stringify(posts[x])
         )}')">Edit</button>`;
+        deleteBtn = `<button class="btn btn-danger" onclick="deleteBtnClicked('${encodeURIComponent(
+          JSON.stringify(posts[x])
+        )}')">Delete</button>`;
       }
       let postId = posts[x].id;
       let username = posts[x].author.username;
@@ -61,7 +65,10 @@ function getPosts(reload = true, page = 1) {
               class="rounded-circle border border-3 profile-pic">
           <b>@${username}</b>
       </div>
+      <div>
       ${editBtn}
+      ${deleteBtn}
+      </div>
      </div>
             <div class="card-body" onclick="changeLocation(${postId})" style="cursor: pointer;">
                 <img class="w-100 rounded"
@@ -109,7 +116,7 @@ function loginBtnClicked() {
       modalInstance.hide();
       showSuccessAlert("You Have Login successfully");
       setupUI();
-      getPosts()
+      getPosts();
     })
     .catch(function (error) {
       showDangerAlert(error.response.data.message);
@@ -198,7 +205,7 @@ function logoutUser() {
   document.querySelector(".profile-pic").style.display = "none";
   username.style.display = "none";
   document.querySelector(".new").style.display = "none";
-  getPosts()
+  getPosts();
 }
 
 // Register User
@@ -228,7 +235,7 @@ function registerBtnClicked() {
       localStorage.setItem("user", JSON.stringify(response.data.user));
       showSuccessAlert("New User Registered Successfully");
       setupUI();
-      getPosts()
+      getPosts();
     })
     .catch(function (error) {
       showDangerAlert(error.response.data.message);
@@ -304,8 +311,29 @@ function editBtnClicked(postObject) {
   document.getElementById("post-id-input").value = post.id;
   document.querySelector(".editTitle").value = post.title;
   document.querySelector(".editBody").value = post.body;
-  console.log("post edited successfully");
   // document.querySelector
 }
 
 //Delete Post
+function deleteBtnClicked(postObject) {
+  let post = JSON.parse(decodeURIComponent(postObject));
+  console.log(post.id);
+
+  let token = localStorage.getItem("token");
+  console.log(token)
+  let config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    }
+  }
+  axios
+    .delete(`${baseURL}/${post.id}`, config)
+    .then(function (response) {
+      console.log(response);
+      console.log("post deleted successfuly");
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
